@@ -1,0 +1,50 @@
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Open-sans', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    height: 100px;
+    width: 200px;
+    border: 1px solid rgb(187, 186, 186);
+    border-radius: 20px;
+}
+
+.fullscreen {
+    height: 1200px;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    position: relative;
+    background-color: rgb(247, 108, 108);
+    color: white;
+    border-radius: 20px;
+    border: 1px solid rgb(187, 186, 186);
+}
+
+.fullscreen h2 {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.fullscreen_image {
+    margin-bottom: -40px;
+    height: 400px;
+    width: 400px;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.info_container {
+    height: 600px;
+    width: 100%;
+    background-color: white;
+    border-radius: 20px;
+}
