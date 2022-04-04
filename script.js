@@ -1,48 +1,75 @@
 let allPokemons = [];
-let offset = 0;
-let currentLimit = 20;
-let currentUrl = 0;
-let url1 = 'https://pokeapi.co/api/v2/pokemon/';
-let url2 = 'https://pokeapi.co/api/v2/pokemon/?offset=20&limit=20';
-let url3 = 'https://pokeapi.co/api/v2/pokemon/?offset=40&limit=20';
-let url4 = 'https://pokeapi.co/api/v2/pokemon/?offset=60&limit=20';
-let url5 = 'https://pokeapi.co/api/v2/pokemon/?offset=80&limit=20';
-let url6 = 'https://pokeapi.co/api/v2/pokemon/?offset=100&limit=20';
-let url7 = 'https://pokeapi.co/api/v2/pokemon/?offset=120&limit=20';
-let url8 = 'https://pokeapi.co/api/v2/pokemon/?offset=140&limit=11';
-let urls = [url1, url2, url3, url4, url5, url6, url7, url8];
-
+let images = [];
+let offset = 1;
+let limit = 21;
+let start = 0;
+let end = 20;
+let number = 1;
 
 async function loadPokemons() {
-    for (let i = 0; i < urls.length; i++) {
-        let position = urls[i];
+    for (let i = offset; i < limit; i++) {
+        let url = `https://pokeapi.co/api/v2/pokemon/${i}/`;
+        let response = await fetch(url);
+        let responseAsJson = await response.json();
+        console.log(responseAsJson);  //dient der Überprüfung
+        let pokemonName = responseAsJson['name'];
+        let pokemonImage = responseAsJson['sprites']['other']['home']['front_default'];
+        let pokemonClasses = [];
 
-
-        let response = await fetch(position);  //Die aktuell festgelegten zwanzig Pokemons werden heruntergeladen, der Code wird bis zum Abschluss dieses Vorgangs pausiert
-        let responseAsJson = await response.json();  //Die als string erfolgte Antwort wird zu einem JSON-Array umgewandelt. Auch hier wird der Code bis zum Abschluss des Vorgangs pausiert
-        allPokemons.push(responseAsJson.results);  //Die variable "allPokemons" wird um das ARRAY aus der Antwort gepusht.
-        renderPokemons();  //die neuen Pokemons werden generiert
-        offset + 20;
-
-        if (offset < 140) {
-            currentLimit + 20;
-        } else if (offset >= 140) {
-            currentLimit + 11;
-        }
-        currentUrl++;
+        getClasses(responseAsJson, pokemonClasses);
+        allPokemons.push({ 'name': `${pokemonName}`, 'image': `${pokemonImage}`, 'classes': pokemonClasses },);
     }
-    console.log(allPokemons);
+    renderPokemons();
+    raiseVariables();
+
+    console.log(allPokemons);  //dient der Überprüfung
 }
 
 
-function renderPokemons() {
-    for (let i = offset; i < currentLimit; i++) {
-        let currentPokemon = allPokemons[currentUrl][i]['name'];
+function raiseVariables() {
+    offset += 20;
+    limit += 20;
+}
 
-        document.getElementById('body').innerHTML += /*html*/`
-          <div class="card">
-              <h2>${currentPokemon}</h2>
-          </div>
-        `;
+
+function getClasses(responseAsJson, pokemonClasses) {
+    for (let j = 0; j < responseAsJson['types'].length; j++) {
+        let className = responseAsJson['types'][j]['type']['name'];
+
+        pokemonClasses.push(className);
     }
-} 
+}
+
+
+async function renderPokemons() {
+    for (let i = start; i < end; i++) {
+        document.getElementById('body').innerHTML += /*html*/`
+          <div class="card" id="pokemon${i}">
+          <div>
+              <span class="number">#${number}</span>
+              <h2>${allPokemons[i]['name']}</h2>
+              <div class="name_container" id="name_container${i}">
+              </div>
+         </div>
+              <img class="pokemon_image" src="${allPokemons[i]['image']}">
+         </div>
+        `;
+        addClasses(i);
+        addBackground(i);
+        number++;
+    }
+}
+
+
+function addClasses(i) {
+    for (let k = 0; k < allPokemons[i]['classes'].length; k++) {
+        let className = allPokemons[i]['classes'][k];
+
+        document.getElementById('name_container' + i).innerHTML += /*html*/`<span>${className}</span>`;
+    }
+}
+
+
+function addBackground(i) {
+
+}
