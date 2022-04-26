@@ -7,7 +7,7 @@
 }
 
 .gray {
-    color:#727272;
+    color:#868686;
 }
 
 .grass {
@@ -80,4 +80,12 @@
 
 .flying {
     background-color: #d76aed;
+}
+
+.green_bar {
+    background-color: #15a53b;
+}
+
+.red_bar {
+    background-color: #f54b4b;
 }
