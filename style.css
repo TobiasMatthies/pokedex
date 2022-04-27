@@ -1,5 +1,6 @@
 body {
     margin: 0;
+    width: calc(100vw - (100vw - 100%));
     min-height: 100vh;
     font-family: 'Open-sans', sans-serif;
     display: flex;
@@ -11,6 +12,7 @@ body {
 }
 
 #responsive_button {
+    margin-bottom: 10px;
    height: 80px;
    width: 220px;
    color: white;
@@ -26,6 +28,7 @@ body {
 
 #body {
     padding: 40px;
+    width: calc(100vw - (100vw - 100%));
     display: flex;
     justify-content: center;
     align-items: center;
@@ -202,6 +205,10 @@ body {
     .pokemon_stats {
         border-radius: 20px 20px 0 0;
     }
+
+    #responsive_button {
+        display: unset;
+    }
 }
 
 @media(max-width: 860px) {
@@ -240,3 +247,4 @@ body {
         font-size: 16px;
     }
 }
+

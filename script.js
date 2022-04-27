@@ -14,9 +14,9 @@ let activeFullscreen = false;
  */
 window.onscroll = function () {
     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight && !activeFullscreen) {
-        // you're at the bottom of the page
-        console.log('bottom');
-        loadPokemons();
+        if (screen.width >= 1000) {
+            loadPokemons();
+        }
     }
 };
 
@@ -56,7 +56,9 @@ async function loadPokemons() {
  * this function hides the responsive load button
  */
 function hide() {
-    document.getElementById('responsive_button').classList.add('d-none');
+    if (screen.width >= 2050) {
+        document.getElementById('responsive_button').classList.add('d-none');
+    }
 }
 
 
@@ -405,10 +407,10 @@ function addBarColors(i, hpStat, attackStat, defenseStat, spAtkStat, spDefStat, 
  */
 function quitFullscreen(i) {
     if (activeFullscreen) {
-    removeClassesQuitFullscreen(i);
-    addClassesQuitFullscreen(i);
-    activeFullscreen = !activeFullscreen;
-    event.stopPropagation();
+        removeClassesQuitFullscreen(i);
+        addClassesQuitFullscreen(i);
+        activeFullscreen = !activeFullscreen;
+        event.stopPropagation();
     }
 }
 
