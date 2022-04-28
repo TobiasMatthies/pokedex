@@ -26,6 +26,8 @@ window.onscroll = function () {
  * this function loads twenty pokemon
  */
 async function loadPokemons() {
+    changeButtonLoading();
+
     for (let i = offset; i < limit; i++) {
         let url = `https://pokeapi.co/api/v2/pokemon/${i}/`;
         let response = await fetch(url);
@@ -48,6 +50,25 @@ async function loadPokemons() {
     allPokemons.sort(function (a, b) { return a['id'] - b['id'] });
     renderPokemons();
     raiseVariables();
+    changeButtonBack();
+}
+
+
+/**
+ * 
+ * this function is used to change the inner html of the load-more button to "loading". It is executed when starting the function "loadPokemons"
+ */
+function changeButtonLoading() {
+    document.getElementById('responsive_button').innerHTML = 'Loading...';
+}
+
+
+/**
+ * 
+ * this function is used to change the inner html back to "Load more". It is executed after the new pokemons are rendered and the variables got raised.
+ */
+function changeButtonBack() {
+    document.getElementById('responsive_button').innerHTML = 'Load more';
 }
 
 
