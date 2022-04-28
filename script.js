@@ -284,8 +284,10 @@ function showFullscreen(i) {
         addFullscreenClasses(i);
         getValues(i);
         activeFullscreen = !activeFullscreen;
-        event.stopPropagation();
+        //event.stopPropagation();
     }
+
+    event.stopPropagation();  
 }
 
 
